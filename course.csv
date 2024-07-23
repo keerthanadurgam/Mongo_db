@@ -1,0 +1,7 @@
+course,courselevel,pre-requisite
+civil, B.Tech,intermediate
+civil, B.Tech, Diploma
+Mpc,intermediate,ssc
+maths,ssc,null
+MBBS, Degree, Bipc
+Bipc,intermediate, ssc
