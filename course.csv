@@ -1,7 +1,5 @@
-course,courselevel,pre-requisite
-civil, B.Tech,intermediate
-civil, B.Tech, Diploma
-Mpc,intermediate,ssc
-maths,ssc,null
-MBBS, Degree, Bipc
-Bipc,intermediate, ssc
+name,courseLevel,prerequisites
+Tenth,School,null
+intermediate-MPC,jr-college,Tenth
+intermediate-BPC,jr-college,Tenth
+Civil, B.Tech, intermediate-MPC

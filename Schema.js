@@ -10,10 +10,10 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    prerequisites: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Course'
-    }]
+    prerequisites: {
+        type: String,
+    }
 });
+const Course = mongoose.model('Course', courseSchema);
 
-module.exports = courseSchema;
+module.exports = Course;

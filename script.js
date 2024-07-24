@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const readCSVFile = require('./insertion');
-const courseSchema = require('./Schema');
+const Course = require('./Schema');
 const uri = 'mongodb://localhost/interns';
+const csv = require('csv-parser');
+const fs = require('fs');
 
 // Function to connect to MongoDB using Mongoose
 async function connectToMongoDB() {
@@ -12,15 +13,46 @@ async function connectToMongoDB() {
         console.error('Error connecting to MongoDB:', error);
     }
 }
-connectToMongoDB();
+
+function readCSVFile(filePath) {
+        const results = [];
+  
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on('data', (data) => results.push(data))
+      .on('end', () => {
+        console.log(results);
+      });
+  }
+
+
+  const csvfile=('./course.csv');
+  readCSVFile(csvfile)
+
+  
 //reading data from csv file
-async function InsertFile() {
+const InsertFile =async function InsertFile() {
     try {
-        const courses = await readCSVFile('course.csv');
+        const courses = await readCSVFile(data);
         console.log(courses);
     } catch (e) {
         console.log("error", e);
     }
 }
-
 InsertFile();
+const coursesInsertion = async ()=>{
+    try {
+        await Course.deleteMany();
+  
+        // Insert new courses
+        await Course.insertMany(data);
+  
+        console.log("Courses inserted successfully");
+    } catch (error) {
+        console.error("Error while inserting courses:", error);
+    }
+  }
+  connectToMongoDB();
+  coursesInsertion();
+
+
