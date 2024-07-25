@@ -13,10 +13,10 @@ async function connectToMongoDB() {
         console.error('Error connecting to MongoDB:', error);
     }
 }
+connectToMongoDB();
 
+const results = [];
 function readCSVFile(filePath) {
-        const results = [];
-  
     fs.createReadStream(filePath)
       .pipe(csv())
       .on('data', (data) => results.push(data))
@@ -24,35 +24,25 @@ function readCSVFile(filePath) {
         console.log(results);
       });
   }
-
-
   const csvfile=('./course.csv');
   readCSVFile(csvfile)
-
   
+  const data =readCSVFile(csvfile)
+
+  const course1 = results[data];
 //reading data from csv file
-const InsertFile =async function InsertFile() {
-    try {
-        const courses = await readCSVFile(data);
-        console.log(courses);
-    } catch (e) {
-        console.log("error", e);
-    }
-}
-InsertFile();
 const coursesInsertion = async ()=>{
     try {
         await Course.deleteMany();
   
         // Insert new courses
-        await Course.insertMany(data);
+        await Course.insertMany(course1);
   
         console.log("Courses inserted successfully");
     } catch (error) {
         console.error("Error while inserting courses:", error);
     }
   }
-  connectToMongoDB();
+  
   coursesInsertion();
-
 

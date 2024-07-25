@@ -1,3 +1,5 @@
+//This file is not included in my schema I Just kept it for my reference
+
 const Course = require('./Schema');
 const fs = require('fs');
 const csv = require('csv-parser');
@@ -16,16 +18,25 @@ function readCSVFile(filePath) {
 
 readCSVFile('./course.csv');
 module.exports = readCSVFile;
-const coursesInsertion = async ()=>{
-  try {
-      await Course.deleteMany();
+async function inserting(){
+  await connection();
+  fs.createReadStream('/Users/admin/Documents/Mongodb/courses.csv',{
+   encoding: 'utf-8'
+  }).pipe(csv())
+  .on('data',  function(row){
+     console.log(row);
+     list.push(row);
+     //  data_checking(row);
 
-      // Insert new courses
-      await Course.insertMany();
-
-      console.log("Courses inserted successfully");
-  } catch (error) {
-      console.error("Error while inserting courses:", error);
-  }
+      console.log("Row name"+row.name);
+  }).on('end', function(){
+     list.forEach(async (element)=>{
+        console.log(element);
+        await data_checking(element);
+     })
+     console.log('Data inserted successfully');
+  }).on('error',()=>{
+   console.log("Error");
+  })
 }
-coursesInsertion();
+inserting(); 

@@ -4,15 +4,14 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema({
     name: {
         type: String,
-        required: true
+    
     },
     courseLevel: {
         type: String,
-        required: true,
     },
-    prerequisites: {
+    prerequisite:[{
         type: String,
-    }
+    }]
 });
 const Course = mongoose.model('Course', courseSchema);
 
